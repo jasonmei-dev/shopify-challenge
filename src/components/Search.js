@@ -12,11 +12,18 @@ class Search extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.searchMovies(this.state.text);
-    this.setState({ text: "" });
+    if (this.state.text === "") {
+      alert("Please enter something");
+    } else {
+      this.props.searchMovies(this.state.text);
+      this.setState({ text: "" });
+    }
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    // this.props.searchMovies(this.state.text);
+  };
 
   render() {
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Search from "./components/Search";
+import Movies from "./components/Movies";
 import "./App.css";
 import Axios from "axios";
 
@@ -20,8 +21,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Hello World</h1>
+        <h1>The Shoppies</h1>
         <Search searchMovies={this.searchMovies} />
+        <Movies movies={this.state.movies} />
       </div>
     );
   }
