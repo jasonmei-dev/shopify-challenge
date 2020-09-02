@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Search from "./components/Search";
+import "./App.css";
+import Axios from "axios";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    movies: [],
+    nominations: [],
+  };
+
+  searchMovies = async (text) => {
+    const res = await Axios.get(
+      `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${text}`
+    );
+
+    this.setState({ movies: res.data.Search });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello World</h1>
+        <Search searchMovies={this.searchMovies} />
+      </div>
+    );
+  }
 }
 
 export default App;
