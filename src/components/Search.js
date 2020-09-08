@@ -1,45 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-class Search extends Component {
-  state = {
-    text: "",
-  };
+const Search = ({ searchMovies }) => {
+  const [text, setText] = useState("");
 
-  static propTypes = {
-    searchMovies: PropTypes.func.isRequired,
-  };
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text === "") {
+    if (text === "") {
       alert("Please enter something");
     } else {
-      this.props.searchMovies(this.state.text);
-      this.setState({ text: "" });
+      searchMovies(text);
+      setText("");
     }
   };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-    // this.props.searchMovies(this.state.text);
-  };
+  const onChange = (e) => setText(e.target.value);
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            name="text"
-            value={this.state.text}
-            onChange={this.onChange}
-          />
-          <input type="submit" value="Search" />
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="text" value={text} onChange={onChange} />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
+  );
+};
+
+Search.propTypes = {
+  searchMovies: PropTypes.func.isRequired,
+};
 
 export default Search;
