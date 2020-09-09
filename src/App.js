@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
 import Movies from "./components/Movies";
-import "./App.css";
+import Nominations from "./components/Nominations";
+
 import Axios from "axios";
+import "./App.css";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -16,11 +18,25 @@ const App = () => {
     setMovies(res.data.Search);
   };
 
+  const addNomination = (movie) => {
+    setNominations((nominations) => [...nominations, movie]);
+  };
+
+  const removeNomination = (movie) => {
+    setNominations(
+      nominations.filter((nomination) => nomination.imdbID !== movie.imdbID)
+    );
+  };
+
   return (
     <div className="App">
       <h1>The Shoppies</h1>
       <Search searchMovies={searchMovies} />
-      <Movies movies={movies} />
+      <Movies movies={movies} addNomination={addNomination} />
+      <Nominations
+        nominations={nominations}
+        removeNomination={removeNomination}
+      />
     </div>
   );
 };
