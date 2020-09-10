@@ -2,14 +2,16 @@ import React from "react";
 
 const Nominations = ({ nominations, removeNomination }) => {
   return (
-    <div>
+    <div className="Nominations">
       <h2>Nominations</h2>
-      {nominations.map((nomination) => (
-        <li key={nomination.imdbID}>
-          {nomination.Title} ({nomination.Year}){" "}
-          <button onClick={() => removeNomination(nomination)}>Remove</button>
-        </li>
-      ))}
+      <ul>
+        {nominations.map((nomination) => (
+          <li id={nomination.imdbID} key={nomination.imdbID}>
+            {nomination.Title} ({nomination.Year}){" "}
+            <button onClick={() => removeNomination(nomination)}>Remove</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

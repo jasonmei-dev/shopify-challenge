@@ -17,7 +17,7 @@ const Search = ({ searchMovies }) => {
   const onChange = (e) => setText(e.target.value);
 
   return (
-    <div>
+    <div className="Search">
       <form onSubmit={onSubmit}>
         <input type="text" name="text" value={text} onChange={onChange} />
         <input type="submit" value="Search" />
