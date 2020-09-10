@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "./components/Search";
 import Movies from "./components/Movies";
 import Nominations from "./components/Nominations";
+import Alert from "./components/Alert";
 
 import Axios from "axios";
 import "./App.css";
@@ -9,6 +10,12 @@ import "./App.css";
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [nominations, setNominations] = useState([]);
+  const [alert, setAlert] = useState(null);
+
+  useEffect(() => {
+    showBanner();
+    // eslint-disable-next-line
+  }, [nominations]);
 
   const searchMovies = async (text) => {
     const res = await Axios.get(
@@ -21,6 +28,8 @@ const App = () => {
   const addNomination = (movie) => {
     if (nominations.length < 5) {
       setNominations((nominations) => [...nominations, movie]);
+    } else {
+      showAlert("You already have 5 nominations");
     }
   };
 
@@ -33,10 +42,22 @@ const App = () => {
   const isNominated = (movie) =>
     !!nominations.find((nomination) => nomination.imdbID === movie.imdbID);
 
+  const showAlert = (message) => {
+    setAlert(message);
+    setTimeout(() => setAlert(null), 5000);
+  };
+
+  const showBanner = () => {
+    if (nominations.length === 5) {
+      showAlert("You reached the maximum number of nominations");
+    }
+  };
+
   return (
     <div className="App">
       <h1>The Shoppies</h1>
-      <Search searchMovies={searchMovies} />
+      <Alert alert={alert} />
+      <Search searchMovies={searchMovies} showAlert={showAlert} />
       <Movies
         movies={movies}
         addNomination={addNomination}

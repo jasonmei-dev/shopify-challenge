@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const Search = ({ searchMovies }) => {
+const Search = ({ searchMovies, showAlert }) => {
   const [text, setText] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alert("Please enter something");
+      showAlert("Please enter something");
     } else {
       searchMovies(text);
       setText("");
@@ -19,6 +19,7 @@ const Search = ({ searchMovies }) => {
   return (
     <div className="Search">
       <form onSubmit={onSubmit}>
+        <label htmlFor="text">Movie Title</label>
         <input type="text" name="text" value={text} onChange={onChange} />
         <input type="submit" value="Search" />
       </form>
