@@ -19,7 +19,9 @@ const App = () => {
   };
 
   const addNomination = (movie) => {
-    setNominations((nominations) => [...nominations, movie]);
+    if (nominations.length < 5) {
+      setNominations((nominations) => [...nominations, movie]);
+    }
   };
 
   const removeNomination = (movie) => {
@@ -28,11 +30,18 @@ const App = () => {
     );
   };
 
+  const isNominated = (movie) =>
+    !!nominations.find((nomination) => nomination.imdbID === movie.imdbID);
+
   return (
     <div className="App">
       <h1>The Shoppies</h1>
       <Search searchMovies={searchMovies} />
-      <Movies movies={movies} addNomination={addNomination} />
+      <Movies
+        movies={movies}
+        addNomination={addNomination}
+        isNominated={isNominated}
+      />
       <Nominations
         nominations={nominations}
         removeNomination={removeNomination}

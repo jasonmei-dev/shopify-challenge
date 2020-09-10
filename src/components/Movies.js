@@ -1,16 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Movies = ({ movies, addNomination }) => {
+const Movies = ({ movies, addNomination, isNominated }) => {
   return (
-    <div>
+    <div className="Movies">
       <h2>Search Results</h2>
-      {movies.map((movie) => (
-        <li key={movie.imdbID}>
-          {movie.Title} ({movie.Year}){" "}
-          <button onClick={() => addNomination(movie)}>Nominate</button>
-        </li>
-      ))}
+      <ul>
+        {movies.map((movie) => (
+          <li id={movie.imdbID} key={movie.imdbID}>
+            {movie.Title} ({movie.Year}){" "}
+            <button
+              disabled={isNominated(movie)}
+              onClick={() => addNomination(movie)}
+            >
+              Nominate
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
