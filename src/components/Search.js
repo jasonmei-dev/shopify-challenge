@@ -6,8 +6,8 @@ const Search = ({ searchMovies, showAlert }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (text === "") {
-      showAlert("Please enter something");
+    if (text.length < 3) {
+      showAlert("Please enter at least 3 characters", "danger");
     } else {
       searchMovies(text);
       setText("");
@@ -19,9 +19,17 @@ const Search = ({ searchMovies, showAlert }) => {
   return (
     <div className="Search">
       <form onSubmit={onSubmit}>
-        <label htmlFor="text">Movie Title</label>
-        <input type="text" name="text" value={text} onChange={onChange} />
-        <input type="submit" value="Search" />
+        <input
+          type="text"
+          name="text"
+          value={text}
+          onChange={onChange}
+          placeholder="Search Movie Title..."
+        />
+
+        <button type="submit">
+          <i className="fa fa-search"></i>
+        </button>
       </form>
     </div>
   );
